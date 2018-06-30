@@ -1,0 +1,6 @@
+{
+    "name": "vacanote",
+    "uuid": "vacanote@luvejo.github.io",
+    "shell-version": ["3.22.3"],
+    "description": "A simple extension for your quick notes at the top bar."
+}
