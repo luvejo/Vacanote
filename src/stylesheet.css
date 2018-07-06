@@ -1,0 +1,83 @@
+/*------------------------------------------------------------------------------
+    CUSTOMIZATIONS
+------------------------------------------------------------------------------*/
+.vaca-popup-menu-content {
+    padding: 0px;
+}
+.vaca-popup-menu-boxpointer {
+  -arrow-background-color: #1d1d1d;
+  -arrow-border-width: 0px;
+}
+
+/*------------------------------------------------------------------------------
+    MAIN CONTAINER
+------------------------------------------------------------------------------*/
+.main-container {
+    margin: 3px;
+}
+
+/*------------------------------------------------------------------------------
+    DASHBOARD DETAIL
+------------------------------------------------------------------------------*/
+.dashboard-detail {
+    width: 260px;
+}
+
+/*--------------------------------------
+    HEADER
+--------------------------------------*/
+.dashboard-detail .header {
+    background-color: #1d1d1d;
+    padding: 10px;
+    border-radius: 3px 3px 0px 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+/*--------------------------------------
+    BODY
+--------------------------------------*/
+.dashboard-detail .note-item {
+    background-color: #e0dc9a;
+    border-color: #c0bc76;
+    color: #666235;
+    border-radius: 3px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+.dashboard-detail .note-item .remove-button {
+    margin-left: 5px;
+}
+.dashboard-detail .note-item .remove-button-icon {
+    width: 10px;
+    height: 10px;
+}
+.dashboard-detail .note-item:last-child {
+    margin-bottom: 0px;
+}
+.dashboard-detail .item-container {
+    background-color: #eeeed7;
+    min-height: 250px;
+    padding: 10px 0px 10px 15px;
+}
+
+/*--------------------------------------
+    ACTION BAR
+--------------------------------------*/
+.dashboard-detail .action-bar {
+    border-color: #dbd9b0;
+    background-color: #eeeed7;
+    color: #1d1d1d;
+    padding: 10px;
+    border-top: 1px;
+    border-radius: 0px 0px 3px 3px;
+    font-weight: bold;
+    font-size: 12px;
+}
