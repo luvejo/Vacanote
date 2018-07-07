@@ -1,5 +1,4 @@
 const Gio = imports.gi.Gio
-const Clutter = imports.gi.Clutter
 const Extension = imports.misc.extensionUtils.getCurrentExtension()
 
 const Settings = Extension.imports.config.settings
@@ -29,11 +28,6 @@ function get_id_index(list, id) {
 function get_gtk_icon(relative_path) {
     return Gio.icon_new_for_string(
         Settings.STATIC_DIR + '/' + relative_path)
-}
-
-
-function get_clutter_color(html_code) {
-    return Clutter.Color.from_string(html_code)[1]
 }
 
 
