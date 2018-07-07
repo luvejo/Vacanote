@@ -1,9 +1,13 @@
 [![License: MIT](img/license-badge.svg)](LICENSE)
 
-<p align="center"> ![VACANOTE](img/logo.png) </p>
+<p align="center">
+    <img alt="VACANOTE" src="img/logo.png">
+</p>
 
 <p align="center" style="max-width: 380px; margin: auto">
-    Manage your quick notes at the top bar with **vacanote**, a [GNOME Shell extension][gnome].
+    Manage your quick notes at the top bar with
+    <strong>vacanote</strong>, a
+    <a href="https://wiki.gnome.org/Projects/GnomeShell/Extensions">GNOME Shell extension</a>.
 </p>
 
 ## Overview
