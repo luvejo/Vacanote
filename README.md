@@ -57,8 +57,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Credits
 Thanks to these projects I didn't have that bother that much at Stack Overflow.
-- **Thomas Moreau**'s  [ToDoList](todolist).
-- **Yotam Bar-On**'s [gnome-shell-extension-clipboard-indicator](clipboard-indicator).
+- **Thomas Moreau**'s  [ToDoList][todolist].
+- **Yotam Bar-On**'s [gnome-shell-extension-clipboard-indicator][clipboard-indicator].
 
 
 [gnome]: https://wiki.gnome.org/Projects/GnomeShell/Extensions
