@@ -6,7 +6,6 @@ const PopupMenu = imports.ui.popupMenu
 const Extension = imports.misc.extensionUtils.getCurrentExtension()
 
 const get_gtk_icon = Extension.imports.core.utils.get_gtk_icon
-const get_clutter_color = Extension.imports.core.utils.get_clutter_color
 const Dashboard = Extension.imports.models.dashboard.Dashboard
 const Note = Extension.imports.models.note.Note
 
@@ -41,8 +40,6 @@ DashboardDetailView.prototype = {
             style_class: 'note-item',
             reactive: true })
 
-        item_text.clutter_text.set_selection_color(get_clutter_color('#666235'))
-        item_text.clutter_text.set_selected_text_color(get_clutter_color('#FFF'))
         let item_text = new St.Entry({ text: note.text })
         item_text.clutter_text.set_line_wrap(true)
         item_text.clutter_text.set_single_line_mode(false)
@@ -94,8 +91,6 @@ DashboardDetailView.prototype = {
             style_class: 'header',
             reactive: true  })
 
-        dashboard_name.clutter_text.set_selection_color(get_clutter_color('#FFF'))
-        dashboard_name.clutter_text.set_selected_text_color(get_clutter_color('#1D1D1D'))
         let dashboard_name = new St.Entry({text: this._dashboard.name })
         dashboard_name.set_x_align(Clutter.ActorAlign.CENTER)
         dashboard_name.set_x_expand(true)

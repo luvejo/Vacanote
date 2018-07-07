@@ -30,10 +30,16 @@
     background-color: #1d1d1d;
     padding: 10px;
     border-radius: 3px 3px 0px 0px;
+}
+.dashboard-detail .header StEntry {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     color: white;
+    background-color: transparent;
+    border: none;
+    selection-background-color: #FFF;
+    selected-color: #1D1D1D;
 }
 
 /*--------------------------------------
@@ -42,15 +48,21 @@
 .dashboard-detail .note-item {
     background-color: #e0dc9a;
     border-color: #c0bc76;
-    color: #666235;
     border-radius: 3px;
     border-bottom-width: 1px;
     border-left-width: 1px;
-    text-align: left;
     padding: 10px;
     margin-bottom: 5px;
     margin-right: 5px;
+}
+.dashboard-detail .note-item StEntry {
+    text-align: left;
     font-size: 14px;
+    color: #666235;
+    background-color: transparent;
+    border: none;
+    selection-background-color: #8c8969;
+    selected-color: #FFF;
 }
 .dashboard-detail .note-item .remove-button {
     margin-left: 5px;
