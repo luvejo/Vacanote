@@ -41,21 +41,19 @@ DashboardDetailView.prototype = {
             style_class: 'note-item',
             reactive: true })
 
-        let item_text = new St.Label({ text: note.text, style_class: 'text' })
-        item_text.clutter_text.set_editable(true)
-        item_text.clutter_text.set_activatable(true)
-        item_text.clutter_text.set_reactive(true)
         item_text.clutter_text.set_selection_color(get_clutter_color('#666235'))
         item_text.clutter_text.set_selected_text_color(get_clutter_color('#FFF'))
+        let item_text = new St.Entry({ text: note.text })
+        item_text.clutter_text.set_line_wrap(true)
+        item_text.clutter_text.set_single_line_mode(false)
 
         let timeoutID = null
-        item_text.clutter_text.connect('key-press-event', e => {
+        item_text.clutter_text.connect('text-changed', (source, e)=> {
             if (timeoutID) {
                 GLib.source_remove(timeoutID)
             }
-            timeoutID = GLib.timeout_add(null, 1500, () => {
-
-                note.text = item_text.text
+            timeoutID = GLib.timeout_add(null, 1200, () => {
+                note.text = item_text.get_text()
                 note.save()
                 timeoutID = null
             })
@@ -96,13 +94,9 @@ DashboardDetailView.prototype = {
             style_class: 'header',
             reactive: true  })
 
-        let dashboard_name = new St.Label({
-            text: this._dashboard.name })
-        dashboard_name.clutter_text.set_editable(true)
-        dashboard_name.clutter_text.set_activatable(true)
-        dashboard_name.clutter_text.set_reactive(true)
         dashboard_name.clutter_text.set_selection_color(get_clutter_color('#FFF'))
         dashboard_name.clutter_text.set_selected_text_color(get_clutter_color('#1D1D1D'))
+        let dashboard_name = new St.Entry({text: this._dashboard.name })
         dashboard_name.set_x_align(Clutter.ActorAlign.CENTER)
         dashboard_name.set_x_expand(true)
 
@@ -115,8 +109,8 @@ DashboardDetailView.prototype = {
             if (timeoutID) {
                 GLib.source_remove(timeoutID)
             }
-            timeoutID = GLib.timeout_add(null, 1500, () => {
-                this._dashboard.name = dashboard_name.text
+            timeoutID = GLib.timeout_add(null, 1200, () => {
+                this._dashboard.name = dashboard_name.get_text()
                 this._dashboard.save()
                 timeoutID = null
             })
