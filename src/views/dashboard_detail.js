@@ -117,7 +117,7 @@ DashboardDetailView.prototype = {
         // Body
         this._item_section = new St.BoxLayout({vertical: true })
 
-        let scrollView = new St.ScrollView({
+        let scroll_view = new St.ScrollView({
             style_class: 'item-container',
             hscrollbar_policy: Gtk.PolicyType.NEVER,
             vscrollbar_policy: Gtk.PolicyType.AUTOMATIC })
@@ -136,7 +136,7 @@ DashboardDetailView.prototype = {
             let item_text = item_box.get_first_child()
             item_text.grab_key_focus()
 
-            let scroll_bar = scrollView.get_vscroll_bar()
+            let scroll_bar = scroll_view.get_vscroll_bar()
 
             scroll_bar.get_adjustment().set_value(
                 item_box.get_allocation_box().y1 )
@@ -145,12 +145,12 @@ DashboardDetailView.prototype = {
         // Putting it all together.
         header.add_child(dashboard_name)
 
-        scrollView.add_actor(this._item_section)
+        scroll_view.add_actor(this._item_section)
 
         action_bar.add_child(create_button)
 
         this._ui.add_child(header)
-        this._ui.add_child(scrollView)
+        this._ui.add_child(scroll_view)
         this._ui.add_child(action_bar)
     },
 
