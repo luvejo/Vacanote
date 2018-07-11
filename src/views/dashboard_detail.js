@@ -13,6 +13,7 @@ const Note = Extension.imports.models.note.Note
 function DashboardDetailView() {
     this._ui = null
     this._dashboard = null
+    this._item_section = null
     this._init()
 }
 
@@ -78,7 +79,7 @@ DashboardDetailView.prototype = {
         item_box.layout_manager.pack(item_text, 0, 0, 1, 1)
         item_box.layout_manager.pack(remove_button, 1, 0, 1, 1)
 
-        this._ui.get_child_at_index(1).get_child_at_index(2).add_child(item_box)
+        this._item_section.add_child(item_box)
     },
 
     _build_UI: function() {
@@ -112,8 +113,7 @@ DashboardDetailView.prototype = {
         })
 
         // Body
-        let item_section = new PopupMenu.PopupMenuSection()
-        item_section.one = false
+        this._item_section = new St.BoxLayout({vertical: true })
 
         let scrollView = new St.ScrollView({
             style_class: 'item-container',
@@ -134,7 +134,7 @@ DashboardDetailView.prototype = {
         // Putting it all together.
         header.add_child(dashboard_name)
 
-        scrollView.add_actor(item_section.actor)
+        scrollView.add_actor(this._item_section)
 
         action_bar.add_child(create_button)
 
