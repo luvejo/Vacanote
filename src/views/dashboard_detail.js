@@ -5,6 +5,12 @@ const Clutter = imports.gi.Clutter
 const PopupMenu = imports.ui.popupMenu
 const Extension = imports.misc.extensionUtils.getCurrentExtension()
 
+const CONTROL_MASK = imports.gi.Clutter.ModifierType.CONTROL_MASK
+const SHIFT_MASK = imports.gi.Clutter.ModifierType.SHIFT_MASK
+const KEY_RETURN = imports.gi.Clutter.Return
+const KEY_HOME = imports.gi.Clutter.Home
+const KEY_END = imports.gi.Clutter.End
+
 const get_gtk_icon = Extension.imports.core.utils.get_gtk_icon
 const Dashboard = Extension.imports.models.dashboard.Dashboard
 const Note = Extension.imports.models.note.Note
@@ -43,6 +49,7 @@ DashboardDetailView.prototype = {
 
         let item_text = new St.Entry({ text: note.text })
         item_text.clutter_text.set_line_wrap(true)
+        item_text.clutter_text.set_activatable(false)
         item_text.clutter_text.set_single_line_mode(false)
 
         let timeoutID = null
@@ -55,6 +62,27 @@ DashboardDetailView.prototype = {
                 note.save()
                 timeoutID = null
             })
+
+        })
+
+        item_text.clutter_text.connect('key-press-event', (clutter_text, e) => {
+            let symbol = e.get_key_symbol()
+            let state = e.get_state()
+
+            if(symbol === KEY_HOME){
+                if (state === CONTROL_MASK)
+                    clutter_text.set_selection(0, 0)
+                else if (state === (CONTROL_MASK|SHIFT_MASK))
+                    clutter_text.set_cursor_position(0)
+
+            } else if(symbol === KEY_END) {
+                let text_length = clutter_text.get_text().length
+
+                if (state === CONTROL_MASK)
+                    clutter_text.set_selection(text_length, text_length)
+                else if (state === (CONTROL_MASK|SHIFT_MASK))
+                    clutter_text.set_cursor_position(text_length)
+            }
         })
 
         let remove_button = new St.Button({
