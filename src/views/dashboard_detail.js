@@ -20,6 +20,7 @@ function DashboardDetailView() {
     this._ui = null
     this._dashboard = null
     this._item_section = null
+    this._action_bar = null
     this._init()
 }
 
@@ -33,6 +34,8 @@ DashboardDetailView.prototype = {
             this._build_note(
                 new Note(this._dashboard, note.text, note.id))
         })
+
+        this._build_create_bar()
     },
 
     _add_note: function(text){
@@ -44,7 +47,7 @@ DashboardDetailView.prototype = {
     _build_note: function(note){
         let item_box = new St.Widget({
             layout_manager: new Clutter.TableLayout(),
-            style_class: 'note-item',
+            style_class: 'item',
             reactive: true })
 
         let item_text = new St.Entry({ text: note.text })
@@ -100,8 +103,7 @@ DashboardDetailView.prototype = {
             style_class: 'remove-button-icon' }))
 
         remove_button.connect('button-press-event', e => {
-            item_box.destroy()
-            note.delete()
+            this._build_delete_bar(note, item_box)
         })
 
         item_box.connect('button-press-event', e => {
@@ -114,6 +116,64 @@ DashboardDetailView.prototype = {
         this._item_section.add_child(item_box)
 
         return item_box
+    },
+
+    _build_create_bar: function() {
+        this._action_bar.destroy_all_children()
+
+        let create_button = new St.Button({
+            label: 'NEW',
+            style_class: 'main-action' })
+        create_button.set_x_align(Clutter.ActorAlign.END)
+        create_button.set_x_expand(true)
+        create_button.connect('button-press-event', e => {
+            let item_box = this._add_note('')
+            let item_text = item_box.get_first_child()
+            item_text.grab_key_focus()
+
+            this.scroll_to_cursor(item_box)
+        })
+
+        this._action_bar.add_child(create_button)
+    },
+
+    _build_delete_bar: function(note, item_box) {
+        this._action_bar.destroy_all_children()
+
+        for (let child of item_box.get_parent().get_children())
+            child.remove_style_class_name('red')
+
+        item_box.add_style_class_name('red')
+
+        let confirmation_msg = new St.Label({
+            text: 'Are you sure you want to delete this note?' })
+
+        confirmation_msg.clutter_text.set_line_wrap(true)
+
+        let no_button = new St.Button({
+            label: 'NO' })
+        no_button.set_x_align(Clutter.ActorAlign.END)
+        no_button.set_x_expand(true)
+        no_button.connect('button-press-event', e => {
+            item_box.remove_style_class_name('red')
+            this._build_create_bar()
+        })
+
+        let yes_button = new St.Button({
+            label: 'YES',
+            style_class: 'main-action' })
+        yes_button.set_x_align(Clutter.ActorAlign.END)
+        yes_button.set_x_expand(true)
+
+        yes_button.connect('button-press-event', e => {
+            item_box.destroy()
+            note.delete()
+            this._build_create_bar()
+        })
+
+        this._action_bar.add_child(confirmation_msg)
+        this._action_bar.add_child(no_button)
+        this._action_bar.add_child(yes_button)
     },
 
     _build_UI: function() {
@@ -155,21 +215,10 @@ DashboardDetailView.prototype = {
             vscrollbar_policy: Gtk.PolicyType.AUTOMATIC })
 
         // Action Bar
-        let action_bar = new St.BoxLayout({
+        this._action_bar = new St.BoxLayout({
             style_class: 'action-bar' })
 
-        let create_button = new St.Button({
-            label: 'NEW',
             reactive: true })
-        create_button.set_x_align(Clutter.ActorAlign.END)
-        create_button.set_x_expand(true)
-        create_button.connect('button-press-event', e => {
-            let item_box = this._add_note('')
-            let item_text = item_box.get_first_child()
-            item_text.grab_key_focus()
-
-            this.scroll_to_cursor(item_box)
-        })
 
         })
 
@@ -178,11 +227,9 @@ DashboardDetailView.prototype = {
 
         scroll_view.add_actor(this._item_section)
 
-        action_bar.add_child(create_button)
-
         this._ui.add_child(header)
         this._ui.add_child(scroll_view)
-        this._ui.add_child(action_bar)
+        this._ui.add_child(this._action_bar)
     },
 
     scroll_to_cursor: function(item) {
