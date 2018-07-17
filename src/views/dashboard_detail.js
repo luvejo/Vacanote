@@ -62,7 +62,11 @@ DashboardDetailView.prototype = {
                 note.save()
                 timeoutID = null
             })
+            this.scroll_to_cursor(item_box)
+        })
 
+        item_text.clutter_text.connect('cursor-changed', () => {
+            this.scroll_to_cursor(item_box)
         })
 
         item_text.clutter_text.connect('key-press-event', (clutter_text, e) => {
@@ -164,10 +168,9 @@ DashboardDetailView.prototype = {
             let item_text = item_box.get_first_child()
             item_text.grab_key_focus()
 
-            let scroll_bar = scroll_view.get_vscroll_bar()
+            this.scroll_to_cursor(item_box)
+        })
 
-            scroll_bar.get_adjustment().set_value(
-                item_box.get_allocation_box().y1 )
         })
 
         // Putting it all together.
@@ -180,6 +183,53 @@ DashboardDetailView.prototype = {
         this._ui.add_child(header)
         this._ui.add_child(scroll_view)
         this._ui.add_child(action_bar)
+    },
+
+    scroll_to_cursor: function(item) {
+        let v_adjustment = this._item_section
+            .get_parent()
+            .get_vscroll_bar()
+            .get_adjustment()
+
+        let current_scroll_value = v_adjustment.get_value()
+
+        let item_section_height = this._item_section.get_allocation_box().y2 -
+                                  this._item_section.get_allocation_box().y1
+
+        let visible_chunk_y1 = current_scroll_value
+
+        let visible_chunk_y2 = current_scroll_value + item_section_height
+
+        let item_y1 = item.get_allocation_box().y1
+
+        let clutter_text = item.get_first_child().clutter_text
+
+        let cursor_y1 = item_y1 + clutter_text.get_cursor_rect().get_y()
+        let line_height = clutter_text.position_to_coords(0)[3]
+        let text = clutter_text.get_text()
+
+        if (text.length === 0) {
+            line_height *= 2
+        } else {
+            let cursor_position = clutter_text.get_cursor_position()
+
+            if (cursor_position === -1)
+                cursor_position = text.length - 1
+
+            if (text[cursor_position] === '\n')
+                line_height *= 2
+        }
+
+        let cursor_y2 = cursor_y1 + line_height
+
+        let bottom_padding = 10
+        if (cursor_y1 < visible_chunk_y1)
+            v_adjustment.set_value(cursor_y1)
+        else if (cursor_y2 > (visible_chunk_y2 - bottom_padding))
+            v_adjustment.set_value(
+                cursor_y2 +
+                line_height -
+                item_section_height)
     },
 
     get_ui: function() {
