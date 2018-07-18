@@ -30,6 +30,28 @@ Dashboard.get = function(id){
 }
 
 
+Dashboard.get_last_viewed = function(){
+    Database.load()
+    return Database.content.meta.last_viewed_dashboard
+}
+
+
+Dashboard.set_last_viewed = function(dashboard_id){
+    Database.load()
+    let data = Database.content.data
+
+    let match = data.filter(
+        dashboard => dashboard.id === dashboard_id)
+
+    if (match.length) {
+        Database.content.meta.last_viewed_dashboard = dashboard_id
+        Database.save()
+    } else {
+        throw 'You\'ve specified an invalid ID.'
+    }
+}
+
+
 Dashboard.prototype = {
     _init: function() {
         Database.load()
