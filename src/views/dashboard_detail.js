@@ -196,7 +196,7 @@ DashboardDetailView.prototype = {
         })
 
         let timeoutID = null
-        dashboard_name.clutter_text.connect('key-press-event', e => {
+        dashboard_name.clutter_text.connect('text-changed', (source, e) => {
             if (timeoutID) {
                 GLib.source_remove(timeoutID)
             }
