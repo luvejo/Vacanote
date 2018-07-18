@@ -20,18 +20,18 @@ App.prototype = {
         PanelMenu.Button.prototype._init.call(this, St.Align.START)
         this.build_UI()
 
-        let router = new Router()
-        this.register_views(router)
+        this.router = new Router()
+        this.register_views()
 
-        router.route(Settings.INITIAL_VIEW)
+        this.router.route(Settings.INITIAL_VIEW)
     },
 
-    register_views: function(router) {
+    register_views: function() {
         let main_box = this.menu.box.get_children()[0]
 
         routes.map(route => {
-            let view = new route.view()
-            router.register(route.name, view)
+            let view = new route.view({ router: this.router })
+            this.router.register(route.name, view)
             main_box.add_child(view.get_ui())
         })
     },

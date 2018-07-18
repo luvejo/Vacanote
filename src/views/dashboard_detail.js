@@ -16,7 +16,8 @@ const Dashboard = Extension.imports.models.dashboard.Dashboard
 const Note = Extension.imports.models.note.Note
 
 
-function DashboardDetailView() {
+function DashboardDetailView(app) {
+    this._app = app
     this._ui = null
     this._dashboard = null
     this._item_section = null
