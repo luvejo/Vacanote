@@ -8,7 +8,7 @@ const DEBUG = false
 const INITIAL_VIEW = 'dashboard-detail'
 
 //  DATABASE
-const INITIAL_JSON = '[{"id": "0", "name": "Things I have TODO", "notes": []}]'
+const INITIAL_JSON = '[{"id": 0, "name": "Things I have TODO", "notes": []}]'
 const CONFIG_DIR = GLib.get_home_dir() + '/.config/vacanote'
 const DB_FILE = CONFIG_DIR + '/db.json'
 
