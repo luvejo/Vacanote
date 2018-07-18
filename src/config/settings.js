@@ -9,8 +9,8 @@ const INITIAL_VIEW = 'dashboard-detail'
 
 //  DATABASE
 const INITIAL_JSON = '{' +
-    'meta: { last_dashboard_id: 0 },' +
-    'data: [' +
+    '"meta": { "last_dashboard_id": 0 },' +
+    '"data": [' +
         '{' +
             '"id": 0,' +
             '"name": "Things I have TODO",' +
