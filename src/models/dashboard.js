@@ -15,14 +15,14 @@ function Dashboard() {
 
 Dashboard.get = function(id){
     Database.load()
-    let content = Database.content
+    let data = Database.content.data
 
-    for (let i in content) {
-        if (content[i].id == id) {
+    for (let i in data) {
+        if (data[i].id == id) {
             let dashboard = new Dashboard()
-            dashboard.id = content[i].id
-            dashboard.name = content[i].name
-            dashboard.notes = content[i].notes
+            dashboard.id = data[i].id
+            dashboard.name = data[i].name
+            dashboard.notes = data[i].notes
             return dashboard
         }
     }
@@ -44,31 +44,31 @@ Dashboard.prototype = {
     },
 
     _create: function() {
-        let content = Database.content
+        let data = Database.content.data
 
-        let next_available_id = get_max_id(content) + 1
-        content.push({
+        let next_available_id = get_max_id(data) + 1
+        data.push({
             id: next_available_id,
             name: this.name,
             notes: [],
         })
 
         this.id = next_available_id
-        Database.content = content
+        Database.content.data = data
         Database.save()
     },
 
     _update: function() {
-        let content = Database.content
-        let index = get_id_index(content, this.id)
+        let data = Database.content.data
+        let index = get_id_index(data, this.id)
 
-        content[index] = {
+        data[index] = {
             id: this.id,
             name: this.name,
             notes: this.notes,
         }
 
-        Database.content = content
+        Database.content.data = data
         Database.save()
     },
 
