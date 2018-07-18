@@ -5,9 +5,9 @@ const get_max_id = Extension.imports.core.utils.get_max_id
 const get_id_index = Extension.imports.core.utils.get_id_index
 
 
-function Dashboard() {
-    this.id = null
-    this.name = null
+function Dashboard(name, id) {
+    this.id = id
+    this.name = name
     this.notes = []
     this._init()
 }
@@ -27,6 +27,21 @@ Dashboard.get = function(id){
         }
     }
     throw 'You\'ve specified an invalid ID.'
+}
+
+
+Dashboard.all = function(id){
+    Database.load()
+    let data = Database.content.data
+
+    let mapped = data.map(dashboard => {
+        return new Dashboard(
+            dashboard.name,
+            dashboard.id)
+    })
+
+    return mapped
+
 }
 
 
@@ -89,6 +104,16 @@ Dashboard.prototype = {
             name: this.name,
             notes: this.notes,
         }
+
+        Database.content.data = data
+        Database.save()
+    },
+
+    delete: function() {
+        let data = Database.content.data
+
+        let index = get_id_index(data, this.id)
+        data.splice(index, 1)
 
         Database.content.data = data
         Database.save()
