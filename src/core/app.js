@@ -51,7 +51,7 @@ App.prototype = {
         this.actor.add_actor(button)
 
         this.menu.box.add(new St.BoxLayout({
-            style_class: 'main-container' }))
+            style_class: 'vaca' }))
 
         this.menu.box.add_style_class_name('vaca-popup-menu-content')
         this.menu._boxPointer.actor.add_style_class_name('vaca-popup-menu-boxpointer')
