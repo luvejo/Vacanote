@@ -11,7 +11,6 @@ const KEY_RETURN = imports.gi.Clutter.Return
 const KEY_HOME = imports.gi.Clutter.Home
 const KEY_END = imports.gi.Clutter.End
 
-const get_gtk_icon = Extension.imports.core.utils.get_gtk_icon
 const Dashboard = Extension.imports.models.dashboard.Dashboard
 const Note = Extension.imports.models.note.Note
 
@@ -100,7 +99,7 @@ DashboardDetailView.prototype = {
         remove_button.set_y_align(Clutter.ActorAlign.START)
 
         remove_button.set_child(new St.Icon({
-            gicon: get_gtk_icon('remove.png'),
+            icon_name: 'vaca-remove-symbolic',
             style_class: 'remove-button-icon' }))
 
         remove_button.connect('button-press-event', e => {

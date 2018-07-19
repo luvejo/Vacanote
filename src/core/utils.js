@@ -25,12 +25,6 @@ function get_id_index(list, id) {
 }
 
 
-function get_gtk_icon(relative_path) {
-    return Gio.icon_new_for_string(
-        Settings.STATIC_DIR + '/' + relative_path)
-}
-
-
 function debug(msg) {
     if (Settings.DEBUG) {
         log('[vaca] ' + msg)

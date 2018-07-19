@@ -4,7 +4,6 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension()
 
 const Router = Extension.imports.core.router.Router
 const routes = Extension.imports.config.routes.routes
-const get_gtk_icon = Extension.imports.core.utils.get_gtk_icon
 const Settings = Extension.imports.config.settings
 
 
@@ -24,6 +23,9 @@ App.prototype = {
         this.register_views()
 
         this.router.route(Settings.INITIAL_VIEW)
+
+        let icon_theme = imports.gi.Gtk.IconTheme.get_default();
+        icon_theme.prepend_search_path(Settings.STATIC_DIR);
     },
 
     register_views: function() {
@@ -44,7 +46,7 @@ App.prototype = {
             track_hover: true })
 
         let icon = new St.Icon({
-            gicon: get_gtk_icon('cow.png'),
+            icon_name: 'cow',
             style_class: 'system-status-icon' })
 
         button.add_child(icon)
