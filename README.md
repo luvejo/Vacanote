@@ -11,11 +11,10 @@
 </p>
 
 ## Overview
-Vacanote (bakanəʊt) is a [GNOME Shell extension][gnome] for organizing your notes, having them all at the top bar for quick search. It grows downwards to fill your screen: get maximum visibility without being invasive.
+Vacanote (bakanəʊt) is a [GNOME Shell extension][gnome] for organizing your notes by dashboard/category, having them all at the top bar for quick search. It grows downwards to fill your screen: get maximum visibility without being invasive.
 
 ### Usage
 - Start editing by clicking either a note or your dashboard's title.
-- `SHIFT+ENTER` to insert a break-line.
 - `ESC` to close the applet.
 
 ## Installation
@@ -53,7 +52,7 @@ In `/path/to/extension/config/settings.js` set the DEBUG flag to `true`. Find th
 
 ## Screenshots
 
-![screenshot](img/screenshot.png)
+![screenshot](img/screenshots.png)
 
 ## License
 
@@ -63,9 +62,12 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Thanks to these projects I didn't have that bother that much at Stack Overflow.
 - **Thomas Moreau**'s  [ToDoList][todolist].
 - **Yotam Bar-On**'s [gnome-shell-extension-clipboard-indicator][clipboard-indicator].
+- **zagortenay333**'s [timepp__gnome][timepp-gnome] and [timepp__cinnamon][timepp-cinnamon].
 
 
 [gnome]: https://wiki.gnome.org/Projects/GnomeShell/Extensions
 [zip-download]: https://github.com/luvejo/vacanote/archive/master.zip
 [todolist]: https://github.com/tomMoral/ToDoList
 [clipboard-indicator]: https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator
+[timepp-gnome]: https://github.com/zagortenay333/timepp__gnome
+[timepp-cinnamon]: https://github.com/zagortenay333/timepp__cinnamon
