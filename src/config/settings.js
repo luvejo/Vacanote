@@ -4,8 +4,6 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension()
 //  DEVELOPMENT
 const DEBUG = false
 
-//  VIEWS
-const INITIAL_VIEW = 'dashboard-detail'
 
 //  DATABASE
 const INITIAL_JSON = '{' +
@@ -24,3 +22,13 @@ const DB_FILE = CONFIG_DIR + '/db.json'
 //  STATIC FILES
 const BASE_DIR = Extension.path
 const STATIC_DIR = BASE_DIR + '/static'
+
+//  DYNAMIC SETTINGS
+function get_initial_view(Extension) {
+    let Dashboard = Extension.imports.models.dashboard.Dashboard
+
+    if (!Dashboard.last_viewed_exists())
+        return 'dashboard-list'
+
+    return 'dashboard-detail'
+}

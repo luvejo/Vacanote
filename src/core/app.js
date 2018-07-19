@@ -22,7 +22,7 @@ App.prototype = {
         this.router = new Router()
         this.register_views()
 
-        this.router.route(Settings.INITIAL_VIEW)
+        this.router.route(Settings.get_initial_view(Extension))
 
         let icon_theme = imports.gi.Gtk.IconTheme.get_default();
         icon_theme.prepend_search_path(Settings.STATIC_DIR);

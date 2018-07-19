@@ -2,7 +2,6 @@ const St = imports.gi.St
 const Gtk = imports.gi.Gtk
 const GLib = imports.gi.GLib
 const Clutter = imports.gi.Clutter
-const PopupMenu = imports.ui.popupMenu
 const Extension = imports.misc.extensionUtils.getCurrentExtension()
 
 const CONTROL_MASK = imports.gi.Clutter.ModifierType.CONTROL_MASK
@@ -26,16 +25,9 @@ function DashboardDetailView(app) {
 
 DashboardDetailView.prototype = {
     _init: function(){
-        this._dashboard = Dashboard.get(0)
-
-        this._build_UI()
-
-        this._dashboard.notes.map(note => {
-            this._build_note(
-                new Note(this._dashboard, note.text, note.id))
-        })
-
-        this._build_create_bar()
+        this._ui = new St.BoxLayout({
+            style_class: 'dashboard-detail' })
+        this._ui.set_vertical(true)
     },
 
     _add_note: function(text){
@@ -126,6 +118,7 @@ DashboardDetailView.prototype = {
             style_class: 'main-action' })
         create_button.set_x_align(Clutter.ActorAlign.END)
         create_button.set_x_expand(true)
+
         create_button.connect('button-press-event', e => {
             let item_box = this._add_note('')
             let item_text = item_box.get_first_child()
@@ -138,32 +131,38 @@ DashboardDetailView.prototype = {
     },
 
     _build_delete_bar: function(note, item_box) {
+        // Cleaning previous builds.
         this._action_bar.destroy_all_children()
 
         for (let child of item_box.get_parent().get_children())
             child.remove_style_class_name('red')
 
+        // Build action bar.
         item_box.add_style_class_name('red')
 
         let confirmation_msg = new St.Label({
-            text: 'Are you sure you want to delete this note?' })
+            text: 'Are you sure you want to delete this note?',
+            style_class: 'action-bar-msg' })
 
         confirmation_msg.clutter_text.set_line_wrap(true)
 
         let no_button = new St.Button({
-            label: 'NO' })
+            label: 'NO',
+            style_class: 'secundary-action' })
         no_button.set_x_align(Clutter.ActorAlign.END)
         no_button.set_x_expand(true)
-        no_button.connect('button-press-event', e => {
-            item_box.remove_style_class_name('red')
-            this._build_create_bar()
-        })
 
         let yes_button = new St.Button({
             label: 'YES',
             style_class: 'main-action' })
-        yes_button.set_x_align(Clutter.ActorAlign.END)
-        yes_button.set_x_expand(true)
+
+        let button_line = new St.BoxLayout()
+
+        // Define handlers
+        no_button.connect('button-press-event', e => {
+            item_box.remove_style_class_name('red')
+            this._build_create_bar()
+        })
 
         yes_button.connect('button-press-event', e => {
             item_box.destroy()
@@ -171,20 +170,33 @@ DashboardDetailView.prototype = {
             this._build_create_bar()
         })
 
+        // Putting it all together.
+        button_line.add_child(no_button)
+        button_line.add_child(yes_button)
+
         this._action_bar.add_child(confirmation_msg)
-        this._action_bar.add_child(no_button)
-        this._action_bar.add_child(yes_button)
+        this._action_bar.add_child(button_line)
     },
 
     _build_UI: function() {
-        this._ui = new St.BoxLayout({
-            style_class: 'dashboard-detail' })
-        this._ui.set_vertical(true)
+        // Clean previous builds.
+        this._ui.destroy_all_children()
 
         // Header
         let header = new St.BoxLayout({
             style_class: 'header',
             reactive: true  })
+
+        let switch_button = new St.Button({
+            style_class: 'switch-button',
+            reactive: true })
+        switch_button.set_child(new St.Icon({
+            icon_name: 'arrow',
+            style_class: 'switch-button-icon' }))
+
+        switch_button.connect('button-press-event', () => {
+            this._app.router.route('dashboard-list')
+        })
 
         let dashboard_name = new St.Entry({text: this._dashboard.name })
         dashboard_name.set_x_align(Clutter.ActorAlign.CENTER)
@@ -217,12 +229,12 @@ DashboardDetailView.prototype = {
         // Action Bar
         this._action_bar = new St.BoxLayout({
             style_class: 'action-bar' })
+        this._action_bar.set_vertical(true)
 
-            reactive: true })
-
-        })
+        this._build_create_bar()
 
         // Putting it all together.
+        header.add_child(switch_button)
         header.add_child(dashboard_name)
 
         scroll_view.add_actor(this._item_section)
@@ -283,7 +295,22 @@ DashboardDetailView.prototype = {
         return this._ui
     },
 
-    show: function() {
+    show: function(kwargs={}) {
+        if ('id' in kwargs) {
+            Dashboard.set_last_viewed(kwargs.id)
+            this._dashboard = Dashboard.get(kwargs.id)
+        } else {
+            this._dashboard = Dashboard.get(
+                Dashboard.get_last_viewed())
+        }
+
+        this._build_UI()
+
+        this._dashboard.notes.map(note => {
+            this._build_note(
+                new Note(this._dashboard, note.text, note.id))
+        })
+
         this._ui.show()
     },
 

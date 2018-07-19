@@ -11,10 +11,10 @@ Router.prototype = {
         view.hide()
     },
 
-    route: function(name) {
+    route: function(name, kwargs) {
         for (let route in this._routes) {
             if (name == route) {
-                this._routes[name].show()
+                this._routes[name].show(kwargs)
             } else {
                 this._routes[route].hide()
             }

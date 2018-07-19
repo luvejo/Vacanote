@@ -67,6 +67,18 @@ Dashboard.set_last_viewed = function(dashboard_id){
 }
 
 
+Dashboard.last_viewed_exists = function(){
+    Database.load()
+    let data = Database.content.data
+    let dashboard_id = this.get_last_viewed()
+
+    let match = data.filter(
+        dashboard => dashboard.id === dashboard_id)
+
+    return match.length
+}
+
+
 Dashboard.prototype = {
     _init: function() {
         Database.load()
