@@ -10,10 +10,75 @@
 }
 
 /*------------------------------------------------------------------------------
-    MAIN CONTAINER
+    DASHBOARD LIST
 ------------------------------------------------------------------------------*/
-.main-container {
-    margin: 3px;
+.dashboard-list {
+    width: 260px;
+}
+
+/*--------------------------------------
+    HEADER
+--------------------------------------*/
+.dashboard-list .header {
+    background-color: #1d1d1d;
+    border-radius: 3px 3px 0px 0px;
+}
+.dashboard-list .switch-button {
+    background-color: #4d4d4d;
+}
+.dashboard-list .header StEntry {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    background-color: transparent;
+    border: none;
+    selection-background-color: #FFF;
+    selected-color: #1D1D1D;
+}
+
+/*--------------------------------------
+    BODY
+--------------------------------------*/
+.dashboard-list .item {
+    background-color: #acacac;
+    border-color: #888888;
+    color: #6d6d6d;
+    border-radius: 3px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+.dashboard-list .item.selected {
+    background-color: #6b6b6b;
+    border-color: #505050;
+    color: white;
+}
+.dashboard-list .item .remove-button-icon {
+    color: #6d6d6d;
+}
+.dashboard-list .item.selected .remove-button-icon{
+    color: white;
+}
+.dashboard-list .item:last-child {
+    margin-bottom: 0px;
+}
+.dashboard-list .item-container {
+    background-color: #eeeeee;
+    min-height: 250px;
+    padding: 10px 0px 10px 15px;
+}
+
+/*--------------------------------------
+    ACTION BAR
+--------------------------------------*/
+.dashboard-list .action-bar {
+    border-color: #d7d7d7;
+    background-color: #eeeeee;
+    color: #1d1d1d;
 }
 
 /*------------------------------------------------------------------------------
@@ -28,8 +93,10 @@
 --------------------------------------*/
 .dashboard-detail .header {
     background-color: #1d1d1d;
-    padding: 10px;
     border-radius: 3px 3px 0px 0px;
+}
+.dashboard-detail .switch-button {
+    background-color: #4d4d4d;
 }
 .dashboard-detail .header StEntry {
     font-size: 16px;
@@ -45,7 +112,7 @@
 /*--------------------------------------
     BODY
 --------------------------------------*/
-.dashboard-detail .note-item {
+.dashboard-detail .item {
     background-color: #e0dc9a;
     border-color: #c0bc76;
     border-radius: 3px;
@@ -55,7 +122,7 @@
     margin-bottom: 5px;
     margin-right: 5px;
 }
-.dashboard-detail .note-item StEntry {
+.dashboard-detail .item StEntry {
     text-align: left;
     font-size: 14px;
     color: #666235;
@@ -64,14 +131,13 @@
     selection-background-color: #8c8969;
     selected-color: #FFF;
 }
-.dashboard-detail .note-item .remove-button {
+.dashboard-detail .item .remove-button {
     margin-left: 5px;
 }
-.dashboard-detail .note-item .remove-button-icon {
-    width: 10px;
-    height: 10px;
+.dashboard-detail .item .remove-button-icon {
+    color: #8c7e2d;
 }
-.dashboard-detail .note-item:last-child {
+.dashboard-detail .item:last-child {
     margin-bottom: 0px;
 }
 .dashboard-detail .item-container {
@@ -87,9 +153,85 @@
     border-color: #dbd9b0;
     background-color: #eeeed7;
     color: #1d1d1d;
+}
+
+/*------------------------------------------------------------------------------
+    COMMON
+------------------------------------------------------------------------------*/
+.vaca {
+    margin: 3px;
+}
+
+/*--------------------------------------
+    HEADER
+--------------------------------------*/
+.vaca .header {
+    height: 40px;
+}
+.vaca .switch-button {
+    padding: 14px 4px;
+    margin-bottom: 3px;
+}
+.vaca .switch-button-icon {
+    width: 4px;
+    height: 8px;
+}
+
+/*--------------------------------------
+    BODY
+--------------------------------------*/
+.vaca .item.red {
+    background-color: #8e1414;
+    border-color: #411010;
+    color: white;
+}
+.vaca .item.red StEntry{
+    color: white;
+}
+.vaca .item.red .remove-button-icon {
+    color: white;
+}
+.vaca .item .remove-button {
+    margin-left: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}
+.vaca .item .remove-button-icon {
+    width: 10px;
+    height: 10px;
+}
+
+/*--------------------------------------
+    ACTION BAR
+--------------------------------------*/
+.vaca .action-bar {
+    font-weight: bold;
+    font-size: 12px;
     padding: 10px;
     border-top: 1px;
     border-radius: 0px 0px 3px 3px;
-    font-weight: bold;
-    font-size: 12px;
+}
+.vaca .action-bar .action-bar-msg {
+    margin-bottom: 5px;
+}
+.vaca .action-bar .main-action {
+    color: white;
+    padding: 5px;
+    background-color: #62a60a;
+    border-radius: 3px;
+    border-color: #466d14;
+    border-left: 1px;
+    border-bottom: 1px;
+}
+.vaca .action-bar .secundary-action {
+    color: white;
+    padding: 5px;
+    background-color: #4d4d4d;
+    border-radius: 3px;
+    border-color: #1d1d1d;
+    border-left: 1px;
+    border-bottom: 1px;
+}
+.vaca .action-bar StButton {
+    margin-right: 5px;
 }

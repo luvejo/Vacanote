@@ -4,7 +4,6 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension()
 
 const Router = Extension.imports.core.router.Router
 const routes = Extension.imports.config.routes.routes
-const get_gtk_icon = Extension.imports.core.utils.get_gtk_icon
 const Settings = Extension.imports.config.settings
 
 
@@ -20,18 +19,21 @@ App.prototype = {
         PanelMenu.Button.prototype._init.call(this, St.Align.START)
         this.build_UI()
 
-        let router = new Router()
-        this.register_views(router)
+        this.router = new Router()
+        this.register_views()
 
-        router.route(Settings.INITIAL_VIEW)
+        this.router.route(Settings.get_initial_view(Extension))
+
+        let icon_theme = imports.gi.Gtk.IconTheme.get_default();
+        icon_theme.prepend_search_path(Settings.STATIC_DIR);
     },
 
-    register_views: function(router) {
+    register_views: function() {
         let main_box = this.menu.box.get_children()[0]
 
         routes.map(route => {
-            let view = new route.view()
-            router.register(route.name, view)
+            let view = new route.view({ router: this.router })
+            this.router.register(route.name, view)
             main_box.add_child(view.get_ui())
         })
     },
@@ -44,14 +46,14 @@ App.prototype = {
             track_hover: true })
 
         let icon = new St.Icon({
-            gicon: get_gtk_icon('cow.png'),
+            icon_name: 'cow',
             style_class: 'system-status-icon' })
 
         button.add_child(icon)
         this.actor.add_actor(button)
 
         this.menu.box.add(new St.BoxLayout({
-            style_class: 'main-container' }))
+            style_class: 'vaca' }))
 
         this.menu.box.add_style_class_name('vaca-popup-menu-content')
         this.menu._boxPointer.actor.add_style_class_name('vaca-popup-menu-boxpointer')
