@@ -59,7 +59,7 @@ In `/path/to/extension/config/settings.js` set the DEBUG flag to `true`. Find th
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Credits
-Thanks to these projects I didn't have that bother that much at Stack Overflow.
+Thanks to these projects I didn't have to bother that much at Stack Overflow.
 - **Thomas Moreau**'s  [ToDoList][todolist].
 - **Yotam Bar-On**'s [gnome-shell-extension-clipboard-indicator][clipboard-indicator].
 - **zagortenay333**'s [timepp__gnome][timepp-gnome] and [timepp__cinnamon][timepp-cinnamon].
