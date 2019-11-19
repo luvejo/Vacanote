@@ -31,7 +31,7 @@ To make the extension readable for the GNOME Shell, you need to move it to the `
 
 Unless you're planning to contribute, you can get rid of this:
 
-    yes | rm -r vacanote
+    rm -rf vacanote
 
 Time to enable it:
 
