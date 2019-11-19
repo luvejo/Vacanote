@@ -37,9 +37,7 @@ Time to enable it:
 
     gnome-shell-extension-tool --enable-extension=vacanote@luvejo.github.io
 
-You may need to restart the GNOME Shell, so press `CTRL+F2` and enter the following in the prompt:
-
-    restart
+You may need to login again.
 
 Enjoy!
 
