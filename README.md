@@ -27,6 +27,7 @@ Or  [Download as ZIP][zip-download].
 
 To make the extension readable for the GNOME Shell, you need to move it to the `~/.local/share/gnome-shell/extensions/` directory:
 
+    mkdir -p ~/.local/share/gnome-shell/extensions/
     mv vacanote/src ~/.local/share/gnome-shell/extensions/vacanote@luvejo.github.io
 
 Unless you're planning to contribute, you can get rid of this:
